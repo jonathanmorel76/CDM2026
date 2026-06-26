@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A0A0B">
+<title>Coupe du Monde 2026 — We Are 26</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+@font-face{font-family:'Oswald';font-style:normal;font-weight:500;font-display:swap;
+  src:url('oswald-500.woff2') format('woff2')}
+@font-face{font-family:'Oswald';font-style:normal;font-weight:700;font-display:swap;
+  src:url('oswald-700.woff2') format('woff2')}
+:root{
+  --black:#0A0A0B; --ink:#17171B; --muted:#6A6A73; --line:#E7E3D8;
+  --paper:#FAF8F3; --card:#FFFFFF;
+  --gold:#C9A227; --gold-lt:#E6C766; --gold-dk:#9A7B18;
+  --q1:#0BA15A; --q2:#2563EB; --q3:#D08700; --q4:#9AA0A6;
+  --fill:#FBF3DB; --fill-bd:#E4C97B;
+  --disp:'Oswald',"Arial Narrow",system-ui,sans-serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--sans);color:var(--ink);background:var(--paper);
+  -webkit-text-size-adjust:100%;padding-bottom:env(safe-area-inset-bottom)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 14px}
+.disp{font-family:var(--disp);text-transform:uppercase;font-weight:700;letter-spacing:.5px;line-height:1}
+
+/* ---- header : black / gold, modular "26" grid ---- */
+header{background:var(--black);color:#fff;position:relative;overflow:hidden;
+  padding:calc(20px + env(safe-area-inset-top)) 0 18px;
+  border-bottom:3px solid var(--gold)}
+header .mesh{position:absolute;inset:0;opacity:.5;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='128' height='128' viewBox='0 0 128 128'><g fill='none' stroke='%23C9A227' stroke-width='1.1' opacity='0.5'><rect x='8' y='8' width='40' height='40'/><path d='M48 88 a32 32 0 0 1 32 -32 v32 z' fill='%23C9A227' opacity='0.10' stroke='none'/><path d='M80 8 a32 32 0 0 0 -32 32'/><rect x='80' y='80' width='40' height='40'/><path d='M8 120 a32 32 0 0 1 32 -32'/></g></svg>");
+  background-size:128px 128px}
+header .glow{position:absolute;right:-60px;top:-40px;width:240px;height:240px;
+  background:radial-gradient(circle,rgba(201,162,39,.28),transparent 65%)}
+.head-row{position:relative;display:flex;align-items:center;gap:14px}
+.crest{width:54px;height:54px;flex:0 0 auto;border-radius:14px;position:relative;
+  background:linear-gradient(145deg,#1b1b1f,#0a0a0b);
+  box-shadow:inset 0 0 0 1px #C9A22755, 0 6px 16px rgba(0,0,0,.4);
+  display:grid;place-items:center}
+.crest .n{font-family:var(--disp);font-weight:700;font-size:24px;
+  background:linear-gradient(180deg,#F2Dd99,#C9A227);-webkit-background-clip:text;
+  background-clip:text;color:transparent}
+.crest .q{position:absolute;right:6px;bottom:6px;width:12px;height:12px;
+  border-right:2px solid var(--gold);border-bottom:2px solid var(--gold);
+  border-bottom-right-radius:12px}
+.eyebrow{font-family:var(--disp);font-weight:700;font-size:11px;letter-spacing:3px;
+  color:var(--gold-lt);text-transform:uppercase}
+h1{font-family:var(--disp);font-weight:700;font-size:clamp(22px,5.4vw,34px);margin:2px 0 0;
+  text-transform:uppercase;letter-spacing:.5px;line-height:.95}
+.sub{margin:4px 0 0;font-size:12px;color:#C9C7BE;font-weight:500;letter-spacing:.3px}
+.head-actions{margin-left:auto;display:flex;gap:8px;position:relative}
+.btn{appearance:none;border:0;border-radius:999px;padding:9px 14px;font-size:12.5px;
+  font-weight:700;cursor:pointer;background:var(--gold);color:#1a1500;white-space:nowrap;
+  font-family:var(--disp);text-transform:uppercase;letter-spacing:.6px}
+.btn.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px #ffffff44}
+.btn:active{transform:translateY(1px)}
+.btn[hidden]{display:none}
+
+/* ---- tabs ---- */
+.tabbar{position:sticky;top:0;z-index:20;background:var(--black);border-bottom:1px solid #222}
+.tabs{display:flex;gap:2px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:7px 0}
+.tab{flex:0 0 auto;border:0;background:transparent;color:#B9B7AE;font-family:var(--disp);
+  font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;
+  padding:8px 16px;border-radius:999px;cursor:pointer}
+.tab.on{background:var(--gold);color:#1a1500}
+
+main{padding:18px 0 60px}
+.panel{display:none}
+.panel.on{display:block}
+
+/* ---- flags ---- */
+.flag{display:inline-block;width:24px;height:17px;border-radius:3px;overflow:hidden;
+  box-shadow:0 0 0 1px rgba(10,10,11,.16);flex:0 0 auto;background:#eee}
+.flag svg{width:100%;height:100%;display:block;object-fit:cover}
+.flag.sm{width:21px;height:15px}
+.tn{display:inline-flex;align-items:center;gap:8px;min-width:0}
+.tn .name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---- group cards ---- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(338px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  box-shadow:0 1px 0 rgba(10,10,11,.02)}
+.card-h{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--black);color:#fff}
+.card-h .lt{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+  font-family:var(--disp);font-weight:700;font-size:16px;color:#1a1500;
+  background:linear-gradient(180deg,var(--gold-lt),var(--gold))}
+.card-h h3{margin:0;font-family:var(--disp);font-size:16px;letter-spacing:1px;text-transform:uppercase}
+.card-h .done{margin-left:auto;font-family:var(--disp);font-size:11px;letter-spacing:1px;
+  color:var(--gold-lt);text-transform:uppercase}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+.stand th{font-family:var(--disp);font-size:10px;letter-spacing:.6px;color:var(--muted);
+  font-weight:700;text-align:center;padding:8px 3px;text-transform:uppercase}
+.stand th.team,.stand td.team{text-align:left;padding-left:12px}
+.stand td{text-align:center;padding:8px 3px;border-top:1px solid var(--line)}
+.stand td.pts{font-family:var(--disp);font-weight:700;font-size:15px}
+.stand .team .name{font-weight:600;max-width:150px}
+.pos{display:inline-grid;place-items:center;width:21px;height:21px;border-radius:6px;
+  font-family:var(--disp);font-weight:700;font-size:12px;color:#fff}
+.q1{background:var(--q1)} .q2{background:var(--q2)} .q3{background:var(--q3)} .q4{background:var(--q4)}
+.stand tr.r1 td{background:rgba(11,161,90,.06)}
+.stand tr.r2 td{background:rgba(37,99,235,.05)}
+.stand tr.r3 td{background:rgba(208,135,0,.06)}
+.stand tr td:first-child{box-shadow:inset 3px 0 0 transparent}
+.stand tr.r1 td:first-child{box-shadow:inset 3px 0 0 var(--q1)}
+.stand tr.r2 td:first-child{box-shadow:inset 3px 0 0 var(--q2)}
+.stand tr.r3 td:first-child{box-shadow:inset 3px 0 0 var(--q3)}
+
+.fixtures{padding:4px 10px 12px}
+.fx-h{font-family:var(--disp);font-size:10px;letter-spacing:1px;color:var(--muted);
+  text-transform:uppercase;padding:10px 4px 2px}
+.fx{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;
+  padding:8px 4px;border-top:1px solid var(--line)}
+.fx .meta{grid-column:1/-1;font-size:10px;color:var(--muted);text-align:center;
+  padding:0 0 3px;order:-1;letter-spacing:.2px}
+.fx .ta{justify-content:flex-end} .fx .tb{justify-content:flex-start}
+.fx .tn{font-size:13px} .fx .tn .name{font-weight:600;max-width:118px}
+.score-box{display:flex;align-items:center;gap:5px}
+.sc{width:38px;height:35px;text-align:center;font-family:var(--mono);font-size:17px;
+  font-weight:700;border:1.5px solid var(--fill-bd);background:var(--fill);border-radius:9px;
+  color:var(--ink);padding:0}
+.sc:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
+.dash{color:var(--gold-dk);font-weight:800}
+
+/* ---- thirds ---- */
+.note{font-size:12.5px;color:var(--muted);background:var(--card);border:1px solid var(--line);
+  border-left:3px solid var(--gold);border-radius:12px;padding:12px 14px;margin-bottom:14px;line-height:1.5}
+.note b{color:var(--ink)}
+.thirds{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.thirds table{font-size:13.5px}
+.thirds th{font-family:var(--disp);font-size:10px;letter-spacing:.6px;color:var(--muted);
+  text-align:left;padding:11px 12px;font-weight:700;text-transform:uppercase;background:#FBFAF6}
+.thirds td{padding:10px 12px;border-top:1px solid var(--line)}
+.thirds td.c{text-align:center}
+.thirds td.rk{font-family:var(--disp);font-weight:700}
+.thirds tr.qual td{background:rgba(11,161,90,.08)}
+.thirds tr.qual td:first-child{box-shadow:inset 3px 0 0 var(--q1)}
+.badge{font-family:var(--disp);font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;
+  letter-spacing:.5px;text-transform:uppercase}
+.badge.y{background:var(--q1);color:#fff} .badge.n{background:#EEECE4;color:var(--muted)}
+
+/* ---- bracket ---- */
+.rounds{display:flex;gap:16px;overflow-x:auto;padding:4px 2px 18px;-webkit-overflow-scrolling:touch}
+.round{flex:0 0 270px;min-width:270px}
+.round h4{margin:0 0 10px;font-family:var(--disp);font-size:12px;letter-spacing:1.5px;
+  color:var(--ink);font-weight:700;text-transform:uppercase;
+  padding-bottom:6px;border-bottom:2px solid var(--gold)}
+.ko{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden}
+.ko-h{font-size:10px;color:var(--muted);padding:8px 11px;border-bottom:1px solid var(--line);
+  line-height:1.35;letter-spacing:.2px}
+.ko-h b{color:var(--ink);font-family:var(--disp);letter-spacing:.5px}
+.ko-row{display:grid;grid-template-columns:auto 1fr 40px;align-items:center;gap:8px;padding:9px 11px}
+.ko-row+.ko-row{border-top:1px solid var(--line)}
+.ko-row .seed{font-family:var(--disp);font-size:9.5px;font-weight:700;color:#fff;border-radius:5px;
+  text-align:center;padding:3px 5px;letter-spacing:.5px;min-width:30px}
+.ko-row .tn .name{font-size:13.5px;font-weight:600;max-width:120px}
+.ko-row .tn.tbd .name{color:var(--muted);font-weight:500;font-style:italic}
+.ko-row.win{background:linear-gradient(90deg,rgba(201,162,39,.16),rgba(201,162,39,.04))}
+.ko-row.win .tn .name{font-weight:800}
+.ko-row.win::after{content:"";}
+.ksc{width:38px;height:33px;text-align:center;font-family:var(--mono);font-size:16px;font-weight:700;
+  border:1.5px solid var(--fill-bd);background:var(--fill);border-radius:8px;padding:0}
+.ksc:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
+.ksc:disabled{opacity:.45;background:#f3f1ea}
+.ko-foot{padding:8px 11px;border-top:1px solid var(--line);display:flex;align-items:center;gap:8px}
+.ko-foot label{font-family:var(--disp);font-size:10px;color:var(--muted);font-weight:700;
+  letter-spacing:.6px;text-transform:uppercase}
+.ko-foot select{flex:1;font-size:13px;font-weight:600;padding:7px 8px;border-radius:8px;
+  border:1.5px solid var(--line);background:#fff;color:var(--ink)}
+.seedA{background:var(--q1)} .seedB{background:var(--q2)} .seedC{background:var(--q3)}
+.seedW{background:var(--gold-dk)} .seedL{background:#A9A7A0}
+
+/* champion */
+.champ{position:relative;overflow:hidden;background:var(--black);color:#fff;border-radius:16px;
+  padding:20px 18px;text-align:center;margin-bottom:16px;border:1px solid #2a2a2a}
+.champ .mesh2{position:absolute;inset:0;opacity:.4;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><g fill='none' stroke='%23C9A227' stroke-width='1' opacity='0.4'><rect x='10' y='10' width='34' height='34'/><path d='M76 10 a34 34 0 0 0 -34 34'/><rect x='76' y='76' width='34' height='34'/></g></svg>");
+  background-size:120px 120px}
+.champ .lab{position:relative;font-family:var(--disp);font-size:11px;letter-spacing:3px;
+  color:var(--gold-lt);text-transform:uppercase}
+.champ .who{position:relative;display:inline-flex;align-items:center;gap:12px;
+  font-family:var(--disp);font-size:26px;font-weight:700;margin-top:8px;text-transform:uppercase;
+  letter-spacing:1px;min-height:34px}
+.champ .who .flag{width:38px;height:27px}
+.champ .who .name.empty{color:#55554f;font-style:normal}
+.trophy{position:relative;font-size:22px;margin-bottom:2px}
+
+.foot{text-align:center;color:var(--muted);font-size:11.5px;padding:18px 0 8px;line-height:1.55}
+.foot .we{font-family:var(--disp);letter-spacing:2px;color:var(--gold-dk);font-weight:700}
+@media(max-width:520px){
+  .grid{grid-template-columns:1fr}
+  .stand .d-hide{display:none}
+  .fx .tn .name{max-width:84px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="mesh"></div><div class="glow"></div>
+  <div class="wrap head-row">
+    <div class="crest"><span class="n">26</span><span class="q"></span></div>
+    <div>
+      <div class="eyebrow">We Are 26 · Canada · México · USA</div>
+      <h1>Coupe du Monde 2026</h1>
+      <p class="sub">11 juin → 19 juillet 2026 · 48 équipes · 16 villes hôtes</p>
+    </div>
+    <div class="head-actions">
+      <button class="btn" id="install" hidden>Installer</button>
+      <button class="btn ghost" id="reset">Réinitialiser</button>
+    </div>
+  </div>
+</header>
+
+<div class="tabbar">
+  <div class="wrap"><div class="tabs">
+    <button class="tab on" data-tab="groupes">Groupes</button>
+    <button class="tab" data-tab="troisiemes">Meilleurs 3es</button>
+    <button class="tab" data-tab="finale">Tableau final</button>
+  </div></div>
+</div>
+
+<main class="wrap">
+  <section class="panel on" id="groupes"><div class="grid" id="groupsGrid"></div></section>
+  <section class="panel" id="troisiemes">
+    <div class="note" id="thirdNote"></div>
+    <div class="thirds"><table id="thirdsTable"></table></div>
+  </section>
+  <section class="panel" id="finale">
+    <div class="champ"><div class="mesh2"></div>
+      <div class="trophy">🏆</div>
+      <div class="lab">Champion du monde 2026</div>
+      <div class="who" id="champ"><span class="name empty">À déterminer</span></div>
+    </div>
+    <div class="rounds" id="bracket"></div>
+  </section>
+  <p class="foot"><span class="we">We Are 26.</span> Saisissez les scores dans les cases dorées ;
+  classements, meilleurs 3es et tableau final se recalculent automatiquement.
+  Pour les matchs à élimination directe, choisissez le vainqueur (un nul se joue aux tirs au but).
+  Données sauvegardées sur cet appareil.</p>
+</main>
+
+<script src="flags.js"></script>
+<script>
+const DATA = {"groups": [{"g": "A", "teams": ["Mexique", "Afrique du Sud", "Corée du Sud", "Tchéquie"], "fixtures": [{"date": "jeudi 11 juin", "heure": "21h00", "a": "Mexique", "b": "Afrique du Sud", "sa": 2, "sb": 0, "stade": "Estadio Azteca, Mexico"}, {"date": "vendredi 12 juin", "heure": "04h00", "a": "Corée du Sud", "b": "Tchéquie", "sa": 2, "sb": 1, "stade": "Estadio Akron, Guadalajara"}, {"date": "jeudi 18 juin", "heure": "18h00", "a": "Tchéquie", "b": "Afrique du Sud", "sa": 1, "sb": 1, "stade": "Mercedes-Benz Stadium, Atlanta"}, {"date": "vendredi 19 juin", "heure": "03h00", "a": "Mexique", "b": "Corée du Sud", "sa": 1, "sb": 0, "stade": "Estadio Akron, Guadalajara"}, {"date": "jeudi 25 juin", "heure": "03h00", "a": "Tchéquie", "b": "Mexique", "sa": 0, "sb": 3, "stade": "Estadio Azteca, Mexico"}, {"date": "jeudi 25 juin", "heure": "03h00", "a": "Afrique du Sud", "b": "Corée du Sud", "sa": 1, "sb": null, "stade": "Estadio BBVA, Monterrey"}]}, {"g": "B", "teams": ["Canada", "Bosnie-Herz.", "Qatar", "Suisse"], "fixtures": [{"date": "vendredi 12 juin", "heure": "21h00", "a": "Canada", "b": "Bosnie-Herz.", "sa": 1, "sb": 1, "stade": "BMO Field, Toronto"}, {"date": "samedi 13 juin", "heure": "21h00", "a": "Qatar", "b": "Suisse", "sa": 1, "sb": 1, "stade": "Levi's Stadium, San Francisco"}, {"date": "jeudi 18 juin", "heure": "21h00", "a": "Suisse", "b": "Bosnie-Herz.", "sa": 4, "sb": 1, "stade": "SoFi Stadium, Los Angeles"}, {"date": "vendredi 19 juin", "heure": "00h00", "a": "Canada", "b": "Qatar", "sa": 6, "sb": 1, "stade": "BC Place, Vancouver"}, {"date": "mercredi 24 juin", "heure": "21h00", "a": "Suisse", "b": "Canada", "sa": 2, "sb": 1, "stade": "BC Place, Vancouver"}, {"date": "mercredi 24 juin", "heure": "21h00", "a": "Bosnie-Herz.", "b": "Qatar", "sa": 3, "sb": 1, "stade": "Lumen Field, Seattle"}]}, {"g": "C", "teams": ["Brésil", "Maroc", "Haïti", "Écosse"], "fixtures": [{"date": "dimanche 14 juin", "heure": "00h00", "a": "Brésil", "b": "Maroc", "sa": 1, "sb": 1, "stade": "MetLife Stadium, New York"}, {"date": "dimanche 14 juin", "heure": "03h00", "a": "Haïti", "b": "Écosse", "sa": 0, "sb": 1, "stade": "Gillette Stadium, Boston"}, {"date": "samedi 20 juin", "heure": "00h00", "a": "Écosse", "b": "Maroc", "sa": 0, "sb": 1, "stade": "Gillette Stadium, Boston"}, {"date": "samedi 20 juin", "heure": "02h30", "a": "Brésil", "b": "Haïti", "sa": 3, "sb": 0, "stade": "Lincoln Financial Field, Philadelphie"}, {"date": "jeudi 25 juin", "heure": "00h00", "a": "Écosse", "b": "Brésil", "sa": 0, "sb": 3, "stade": "Hard Rock Stadium, Miami"}, {"date": "jeudi 25 juin", "heure": "00h00", "a": "Maroc", "b": "Haïti", "sa": 4, "sb": 2, "stade": "Mercedes-Benz Stadium, Atlanta"}]}, {"g": "D", "teams": ["États-Unis", "Paraguay", "Australie", "Turquie"], "fixtures": [{"date": "samedi 13 juin", "heure": "03h00", "a": "États-Unis", "b": "Paraguay", "sa": 4, "sb": 1, "stade": "SoFi Stadium, Los Angeles"}, {"date": "dimanche 14 juin", "heure": "18h00", "a": "Australie", "b": "Turquie", "sa": 2, "sb": 0, "stade": "BC Place, Vancouver"}, {"date": "vendredi 19 juin", "heure": "21h00", "a": "États-Unis", "b": "Australie", "sa": 2, "sb": 0, "stade": "Lumen Field, Seattle"}, {"date": "samedi 20 juin", "heure": "05h00", "a": "Turquie", "b": "Paraguay", "sa": 0, "sb": 1, "stade": "Levi's Stadium, San Francisco"}, {"date": "vendredi 26 juin", "heure": "04h00", "a": "Turquie", "b": "États-Unis", "sa": null, "sb": null, "stade": "SoFi Stadium, Los Angeles"}, {"date": "vendredi 26 juin", "heure": "04h00", "a": "Paraguay", "b": "Australie", "sa": null, "sb": null, "stade": "Levi's Stadium, San Francisco"}]}, {"g": "E", "teams": ["Allemagne", "Curaçao", "Côte d'Ivoire", "Équateur"], "fixtures": [{"date": "dimanche 14 juin", "heure": "19h00", "a": "Allemagne", "b": "Curaçao", "sa": 7, "sb": 1, "stade": "NRG Stadium, Houston"}, {"date": "lundi 15 juin", "heure": "01h00", "a": "Côte d'Ivoire", "b": "Équateur", "sa": 1, "sb": 0, "stade": "Lincoln Financial Field, Philadelphie"}, {"date": "samedi 20 juin", "heure": "22h00", "a": "Allemagne", "b": "Côte d'Ivoire", "sa": 2, "sb": 1, "stade": "BMO Field, Toronto"}, {"date": "dimanche 21 juin", "heure": "02h00", "a": "Équateur", "b": "Curaçao", "sa": 0, "sb": 0, "stade": "Arrowhead Stadium, Kansas City"}, {"date": "jeudi 25 juin", "heure": "22h00", "a": "Curaçao", "b": "Côte d'Ivoire", "sa": null, "sb": null, "stade": "Lincoln Financial Field, Philadelphie"}, {"date": "jeudi 25 juin", "heure": "22h00", "a": "Équateur", "b": "Allemagne", "sa": null, "sb": null, "stade": "MetLife Stadium, New York"}]}, {"g": "F", "teams": ["Pays-Bas", "Japon", "Suède", "Tunisie"], "fixtures": [{"date": "dimanche 14 juin", "heure": "22h00", "a": "Pays-Bas", "b": "Japon", "sa": 2, "sb": 2, "stade": "AT&T Stadium, Dallas"}, {"date": "lundi 15 juin", "heure": "04h00", "a": "Suède", "b": "Tunisie", "sa": 5, "sb": 1, "stade": "Estadio BBVA, Monterrey"}, {"date": "samedi 20 juin", "heure": "19h00", "a": "Pays-Bas", "b": "Suède", "sa": 5, "sb": 1, "stade": "NRG Stadium, Houston"}, {"date": "dimanche 21 juin", "heure": "06h00", "a": "Tunisie", "b": "Japon", "sa": 0, "sb": 4, "stade": "Estadio BBVA, Monterrey"}, {"date": "vendredi 26 juin", "heure": "01h00", "a": "Japon", "b": "Suède", "sa": null, "sb": null, "stade": "AT&T Stadium, Dallas"}, {"date": "vendredi 26 juin", "heure": "01h00", "a": "Tunisie", "b": "Pays-Bas", "sa": null, "sb": null, "stade": "Arrowhead Stadium, Kansas City"}]}, {"g": "G", "teams": ["Belgique", "Égypte", "Iran", "Nouvelle-Zélande"], "fixtures": [{"date": "lundi 15 juin", "heure": "21h00", "a": "Belgique", "b": "Égypte", "sa": 1, "sb": 1, "stade": "Lumen Field, Seattle"}, {"date": "mardi 16 juin", "heure": "03h00", "a": "Iran", "b": "Nouvelle-Zélande", "sa": 2, "sb": 2, "stade": "SoFi Stadium, Los Angeles"}, {"date": "dimanche 21 juin", "heure": "21h00", "a": "Belgique", "b": "Iran", "sa": 0, "sb": 0, "stade": "SoFi Stadium, Los Angeles"}, {"date": "lundi 22 juin", "heure": "03h00", "a": "Nouvelle-Zélande", "b": "Égypte", "sa": 1, "sb": 3, "stade": "BC Place, Vancouver"}, {"date": "samedi 27 juin", "heure": "05h00", "a": "Égypte", "b": "Iran", "sa": null, "sb": null, "stade": "Lumen Field, Seattle"}, {"date": "samedi 27 juin", "heure": "05h00", "a": "Nouvelle-Zélande", "b": "Belgique", "sa": null, "sb": null, "stade": "BC Place, Vancouver"}]}, {"g": "H", "teams": ["Espagne", "Cap-Vert", "Arabie saoudite", "Uruguay"], "fixtures": [{"date": "lundi 15 juin", "heure": "18h00", "a": "Espagne", "b": "Cap-Vert", "sa": 0, "sb": 0, "stade": "Mercedes-Benz Stadium, Atlanta"}, {"date": "mardi 16 juin", "heure": "00h00", "a": "Arabie saoudite", "b": "Uruguay", "sa": 1, "sb": 1, "stade": "Hard Rock Stadium, Miami"}, {"date": "dimanche 21 juin", "heure": "18h00", "a": "Espagne", "b": "Arabie saoudite", "sa": 4, "sb": 0, "stade": "Mercedes-Benz Stadium, Atlanta"}, {"date": "lundi 22 juin", "heure": "00h00", "a": "Uruguay", "b": "Cap-Vert", "sa": 2, "sb": 2, "stade": "Hard Rock Stadium, Miami"}, {"date": "samedi 27 juin", "heure": "02h00", "a": "Cap-Vert", "b": "Arabie saoudite", "sa": null, "sb": null, "stade": "NRG Stadium, Houston"}, {"date": "samedi 27 juin", "heure": "02h00", "a": "Uruguay", "b": "Espagne", "sa": null, "sb": null, "stade": "Estadio Akron, Guadalajara"}]}, {"g": "I", "teams": ["France", "Sénégal", "Irak", "Norvège"], "fixtures": [{"date": "mardi 16 juin", "heure": "21h00", "a": "France", "b": "Sénégal", "sa": 3, "sb": 1, "stade": "MetLife Stadium, New York"}, {"date": "mercredi 17 juin", "heure": "00h00", "a": "Irak", "b": "Norvège", "sa": 1, "sb": 4, "stade": "Gillette Stadium, Boston"}, {"date": "lundi 22 juin", "heure": "23h00", "a": "France", "b": "Irak", "sa": 3, "sb": 0, "stade": "Lincoln Financial Field, Philadelphie"}, {"date": "mardi 23 juin", "heure": "02h00", "a": "Norvège", "b": "Sénégal", "sa": 3, "sb": 2, "stade": "MetLife Stadium, New York"}, {"date": "vendredi 26 juin", "heure": "21h00", "a": "Norvège", "b": "France", "sa": null, "sb": null, "stade": "Gillette Stadium, Boston"}, {"date": "vendredi 26 juin", "heure": "21h00", "a": "Sénégal", "b": "Irak", "sa": null, "sb": null, "stade": "BMO Field, Toronto"}]}, {"g": "J", "teams": ["Argentine", "Algérie", "Autriche", "Jordanie"], "fixtures": [{"date": "mercredi 17 juin", "heure": "03h00", "a": "Argentine", "b": "Algérie", "sa": 3, "sb": 0, "stade": "Arrowhead Stadium, Kansas City"}, {"date": "mercredi 17 juin", "heure": "06h00", "a": "Autriche", "b": "Jordanie", "sa": 3, "sb": 1, "stade": "Levi's Stadium, San Francisco"}, {"date": "lundi 22 juin", "heure": "19h00", "a": "Argentine", "b": "Autriche", "sa": 2, "sb": 0, "stade": "AT&T Stadium, Dallas"}, {"date": "mardi 23 juin", "heure": "05h00", "a": "Jordanie", "b": "Algérie", "sa": 1, "sb": 2, "stade": "Levi's Stadium, San Francisco"}, {"date": "dimanche 28 juin", "heure": "04h00", "a": "Algérie", "b": "Autriche", "sa": null, "sb": null, "stade": "Arrowhead Stadium, Kansas City"}, {"date": "dimanche 28 juin", "heure": "04h00", "a": "Jordanie", "b": "Argentine", "sa": null, "sb": null, "stade": "AT&T Stadium, Dallas"}]}, {"g": "K", "teams": ["Portugal", "RD Congo", "Ouzbékistan", "Colombie"], "fixtures": [{"date": "mercredi 17 juin", "heure": "19h00", "a": "Portugal", "b": "RD Congo", "sa": 1, "sb": 1, "stade": "NRG Stadium, Houston"}, {"date": "jeudi 18 juin", "heure": "04h00", "a": "Ouzbékistan", "b": "Colombie", "sa": 1, "sb": 3, "stade": "Estadio Azteca, Mexico"}, {"date": "mardi 23 juin", "heure": "19h00", "a": "Portugal", "b": "Ouzbékistan", "sa": 5, "sb": 0, "stade": "NRG Stadium, Houston"}, {"date": "mercredi 24 juin", "heure": "04h00", "a": "Colombie", "b": "RD Congo", "sa": 1, "sb": 0, "stade": "Estadio Akron, Guadalajara"}, {"date": "dimanche 28 juin", "heure": "01h30", "a": "Colombie", "b": "Portugal", "sa": null, "sb": null, "stade": "Hard Rock Stadium, Miami"}, {"date": "dimanche 28 juin", "heure": "01h30", "a": "RD Congo", "b": "Ouzbékistan", "sa": null, "sb": null, "stade": "Mercedes-Benz Stadium, Atlanta"}]}, {"g": "L", "teams": ["Angleterre", "Croatie", "Ghana", "Panama"], "fixtures": [{"date": "mercredi 17 juin", "heure": "22h00", "a": "Angleterre", "b": "Croatie", "sa": 4, "sb": 2, "stade": "AT&T Stadium, Dallas"}, {"date": "jeudi 18 juin", "heure": "01h00", "a": "Ghana", "b": "Panama", "sa": 1, "sb": 0, "stade": "BMO Field, Toronto"}, {"date": "mardi 23 juin", "heure": "22h00", "a": "Angleterre", "b": "Ghana", "sa": 0, "sb": 0, "stade": "Gillette Stadium, Boston"}, {"date": "mercredi 24 juin", "heure": "01h00", "a": "Panama", "b": "Croatie", "sa": 0, "sb": 1, "stade": "BMO Field, Toronto"}, {"date": "samedi 27 juin", "heure": "23h00", "a": "Panama", "b": "Angleterre", "sa": null, "sb": null, "stade": "MetLife Stadium, New York"}, {"date": "samedi 27 juin", "heure": "23h00", "a": "Croatie", "b": "Ghana", "sa": null, "sb": null, "stade": "Lincoln Financial Field, Philadelphie"}]}], "annexeC": {"slots": ["1A", "1B", "1D", "1E", "1G", "1I", "1K", "1L"], "map": {"EFGHIJKL": ["E", "J", "I", "F", "H", "G", "L", "K"], "DFGHIJKL": ["H", "G", "I", "D", "J", "F", "L", "K"], "DEGHIJKL": ["E", "J", "I", "D", "H", "G", "L", "K"], "DEFHIJKL": ["E", "J", "I", "D", "H", "F", "L", "K"], "DEFGIJKL": ["E", "G", "I", "D", "J", "F", "L", "K"], "DEFGHJKL": ["E", "G", "J", "D", "H", "F", "L", "K"], "DEFGHIKL": ["E", "G", "I", "D", "H", "F", "L", "K"], "DEFGHIJL": ["E", "G", "J", "D", "H", "F", "L", "I"], "DEFGHIJK": ["E", "G", "J", "D", "H", "F", "I", "K"], "CFGHIJKL": ["H", "G", "I", "C", "J", "F", "L", "K"], "CEGHIJKL": ["E", "J", "I", "C", "H", "G", "L", "K"], "CEFHIJKL": ["E", "J", "I", "C", "H", "F", "L", "K"], "CEFGIJKL": ["E", "G", "I", "C", "J", "F", "L", "K"], "CEFGHJKL": ["E", "G", "J", "C", "H", "F", "L", "K"], "CEFGHIKL": ["E", "G", "I", "C", "H", "F", "L", "K"], "CEFGHIJL": ["E", "G", "J", "C", "H", "F", "L", "I"], "CEFGHIJK": ["E", "G", "J", "C", "H", "F", "I", "K"], "CDGHIJKL": ["H", "G", "I", "C", "J", "D", "L", "K"], "CDFHIJKL": ["C", "J", "I", "D", "H", "F", "L", "K"], "CDFGIJKL": ["C", "G", "I", "D", "J", "F", "L", "K"], "CDFGHJKL": ["C", "G", "J", "D", "H", "F", "L", "K"], "CDFGHIKL": ["C", "G", "I", "D", "H", "F", "L", "K"], "CDFGHIJL": ["C", "G", "J", "D", "H", "F", "L", "I"], "CDFGHIJK": ["C", "G", "J", "D", "H", "F", "I", "K"], "CDEHIJKL": ["E", "J", "I", "C", "H", "D", "L", "K"], "CDEGIJKL": ["E", "G", "I", "C", "J", "D", "L", "K"], "CDEGHJKL": ["E", "G", "J", "C", "H", "D", "L", "K"], "CDEGHIKL": ["E", "G", "I", "C", "H", "D", "L", "K"], "CDEGHIJL": ["E", "G", "J", "C", "H", "D", "L", "I"], "CDEGHIJK": ["E", "G", "J", "C", "H", "D", "I", "K"], "CDEFIJKL": ["C", "J", "E", "D", "I", "F", "L", "K"], "CDEFHJKL": ["C", "J", "E", "D", "H", "F", "L", "K"], "CDEFHIKL": ["C", "E", "I", "D", "H", "F", "L", "K"], "CDEFHIJL": ["C", "J", "E", "D", "H", "F", "L", "I"], "CDEFHIJK": ["C", "J", "E", "D", "H", "F", "I", "K"], "CDEFGJKL": ["C", "G", "E", "D", "J", "F", "L", "K"], "CDEFGIKL": ["C", "G", "E", "D", "I", "F", "L", "K"], "CDEFGIJL": ["C", "G", "E", "D", "J", "F", "L", "I"], "CDEFGIJK": ["C", "G", "E", "D", "J", "F", "I", "K"], "CDEFGHKL": ["C", "G", "E", "D", "H", "F", "L", "K"], "CDEFGHJL": ["C", "G", "J", "D", "H", "F", "L", "E"], "CDEFGHJK": ["C", "G", "J", "D", "H", "F", "E", "K"], "CDEFGHIL": ["C", "G", "E", "D", "H", "F", "L", "I"], "CDEFGHIK": ["C", "G", "E", "D", "H", "F", "I", "K"], "CDEFGHIJ": ["C", "G", "J", "D", "H", "F", "E", "I"], "BFGHIJKL": ["H", "J", "B", "F", "I", "G", "L", "K"], "BEGHIJKL": ["E", "J", "I", "B", "H", "G", "L", "K"], "BEFHIJKL": ["E", "J", "B", "F", "I", "H", "L", "K"], "BEFGIJKL": ["E", "J", "B", "F", "I", "G", "L", "K"], "BEFGHJKL": ["E", "J", "B", "F", "H", "G", "L", "K"], "BEFGHIKL": ["E", "G", "B", "F", "I", "H", "L", "K"], "BEFGHIJL": ["E", "J", "B", "F", "H", "G", "L", "I"], "BEFGHIJK": ["E", "J", "B", "F", "H", "G", "I", "K"], "BDGHIJKL": ["H", "J", "B", "D", "I", "G", "L", "K"], "BDFHIJKL": ["H", "J", "B", "D", "I", "F", "L", "K"], "BDFGIJKL": ["I", "G", "B", "D", "J", "F", "L", "K"], "BDFGHJKL": ["H", "G", "B", "D", "J", "F", "L", "K"], "BDFGHIKL": ["H", "G", "B", "D", "I", "F", "L", "K"], "BDFGHIJL": ["H", "G", "B", "D", "J", "F", "L", "I"], "BDFGHIJK": ["H", "G", "B", "D", "J", "F", "I", "K"], "BDEHIJKL": ["E", "J", "B", "D", "I", "H", "L", "K"], "BDEGIJKL": ["E", "J", "B", "D", "I", "G", "L", "K"], "BDEGHJKL": ["E", "J", "B", "D", "H", "G", "L", "K"], "BDEGHIKL": ["E", "G", "B", "D", "I", "H", "L", "K"], "BDEGHIJL": ["E", "J", "B", "D", "H", "G", "L", "I"], "BDEGHIJK": ["E", "J", "B", "D", "H", "G", "I", "K"], "BDEFIJKL": ["E", "J", "B", "D", "I", "F", "L", "K"], "BDEFHJKL": ["E", "J", "B", "D", "H", "F", "L", "K"], "BDEFHIKL": ["E", "I", "B", "D", "H", "F", "L", "K"], "BDEFHIJL": ["E", "J", "B", "D", "H", "F", "L", "I"], "BDEFHIJK": ["E", "J", "B", "D", "H", "F", "I", "K"], "BDEFGJKL": ["E", "G", "B", "D", "J", "F", "L", "K"], "BDEFGIKL": ["E", "G", "B", "D", "I", "F", "L", "K"], "BDEFGIJL": ["E", "G", "B", "D", "J", "F", "L", "I"], "BDEFGIJK": ["E", "G", "B", "D", "J", "F", "I", "K"], "BDEFGHKL": ["E", "G", "B", "D", "H", "F", "L", "K"], "BDEFGHJL": ["H", "G", "B", "D", "J", "F", "L", "E"], "BDEFGHJK": ["H", "G", "B", "D", "J", "F", "E", "K"], "BDEFGHIL": ["E", "G", "B", "D", "H", "F", "L", "I"], "BDEFGHIK": ["E", "G", "B", "D", "H", "F", "I", "K"], "BDEFGHIJ": ["H", "G", "B", "D", "J", "F", "E", "I"], "BCGHIJKL": ["H", "J", "B", "C", "I", "G", "L", "K"], "BCFHIJKL": ["H", "J", "B", "C", "I", "F", "L", "K"], "BCFGIJKL": ["I", "G", "B", "C", "J", "F", "L", "K"], "BCFGHJKL": ["H", "G", "B", "C", "J", "F", "L", "K"], "BCFGHIKL": ["H", "G", "B", "C", "I", "F", "L", "K"], "BCFGHIJL": ["H", "G", "B", "C", "J", "F", "L", "I"], "BCFGHIJK": ["H", "G", "B", "C", "J", "F", "I", "K"], "BCEHIJKL": ["E", "J", "B", "C", "I", "H", "L", "K"], "BCEGIJKL": ["E", "J", "B", "C", "I", "G", "L", "K"], "BCEGHJKL": ["E", "J", "B", "C", "H", "G", "L", "K"], "BCEGHIKL": ["E", "G", "B", "C", "I", "H", "L", "K"], "BCEGHIJL": ["E", "J", "B", "C", "H", "G", "L", "I"], "BCEGHIJK": ["E", "J", "B", "C", "H", "G", "I", "K"], "BCEFIJKL": ["E", "J", "B", "C", "I", "F", "L", "K"], "BCEFHJKL": ["E", "J", "B", "C", "H", "F", "L", "K"], "BCEFHIKL": ["E", "I", "B", "C", "H", "F", "L", "K"], "BCEFHIJL": ["E", "J", "B", "C", "H", "F", "L", "I"], "BCEFHIJK": ["E", "J", "B", "C", "H", "F", "I", "K"], "BCEFGJKL": ["E", "G", "B", "C", "J", "F", "L", "K"], "BCEFGIKL": ["E", "G", "B", "C", "I", "F", "L", "K"], "BCEFGIJL": ["E", "G", "B", "C", "J", "F", "L", "I"], "BCEFGIJK": ["E", "G", "B", "C", "J", "F", "I", "K"], "BCEFGHKL": ["E", "G", "B", "C", "H", "F", "L", "K"], "BCEFGHJL": ["H", "G", "B", "C", "J", "F", "L", "E"], "BCEFGHJK": ["H", "G", "B", "C", "J", "F", "E", "K"], "BCEFGHIL": ["E", "G", "B", "C", "H", "F", "L", "I"], "BCEFGHIK": ["E", "G", "B", "C", "H", "F", "I", "K"], "BCEFGHIJ": ["H", "G", "B", "C", "J", "F", "E", "I"], "BCDHIJKL": ["H", "J", "B", "C", "I", "D", "L", "K"], "BCDGIJKL": ["I", "G", "B", "C", "J", "D", "L", "K"], "BCDGHJKL": ["H", "G", "B", "C", "J", "D", "L", "K"], "BCDGHIKL": ["H", "G", "B", "C", "I", "D", "L", "K"], "BCDGHIJL": ["H", "G", "B", "C", "J", "D", "L", "I"], "BCDGHIJK": ["H", "G", "B", "C", "J", "D", "I", "K"], "BCDFIJKL": ["C", "J", "B", "D", "I", "F", "L", "K"], "BCDFHJKL": ["C", "J", "B", "D", "H", "F", "L", "K"], "BCDFHIKL": ["C", "I", "B", "D", "H", "F", "L", "K"], "BCDFHIJL": ["C", "J", "B", "D", "H", "F", "L", "I"], "BCDFHIJK": ["C", "J", "B", "D", "H", "F", "I", "K"], "BCDFGJKL": ["C", "G", "B", "D", "J", "F", "L", "K"], "BCDFGIKL": ["C", "G", "B", "D", "I", "F", "L", "K"], "BCDFGIJL": ["C", "G", "B", "D", "J", "F", "L", "I"], "BCDFGIJK": ["C", "G", "B", "D", "J", "F", "I", "K"], "BCDFGHKL": ["C", "G", "B", "D", "H", "F", "L", "K"], "BCDFGHJL": ["C", "G", "B", "D", "H", "F", "L", "J"], "BCDFGHJK": ["H", "G", "B", "C", "J", "F", "D", "K"], "BCDFGHIL": ["C", "G", "B", "D", "H", "F", "L", "I"], "BCDFGHIK": ["C", "G", "B", "D", "H", "F", "I", "K"], "BCDFGHIJ": ["H", "G", "B", "C", "J", "F", "D", "I"], "BCDEIJKL": ["E", "J", "B", "C", "I", "D", "L", "K"], "BCDEHJKL": ["E", "J", "B", "C", "H", "D", "L", "K"], "BCDEHIKL": ["E", "I", "B", "C", "H", "D", "L", "K"], "BCDEHIJL": ["E", "J", "B", "C", "H", "D", "L", "I"], "BCDEHIJK": ["E", "J", "B", "C", "H", "D", "I", "K"], "BCDEGJKL": ["E", "G", "B", "C", "J", "D", "L", "K"], "BCDEGIKL": ["E", "G", "B", "C", "I", "D", "L", "K"], "BCDEGIJL": ["E", "G", "B", "C", "J", "D", "L", "I"], "BCDEGIJK": ["E", "G", "B", "C", "J", "D", "I", "K"], "BCDEGHKL": ["E", "G", "B", "C", "H", "D", "L", "K"], "BCDEGHJL": ["H", "G", "B", "C", "J", "D", "L", "E"], "BCDEGHJK": ["H", "G", "B", "C", "J", "D", "E", "K"], "BCDEGHIL": ["E", "G", "B", "C", "H", "D", "L", "I"], "BCDEGHIK": ["E", "G", "B", "C", "H", "D", "I", "K"], "BCDEGHIJ": ["H", "G", "B", "C", "J", "D", "E", "I"], "BCDEFJKL": ["C", "J", "B", "D", "E", "F", "L", "K"], "BCDEFIKL": ["C", "E", "B", "D", "I", "F", "L", "K"], "BCDEFIJL": ["C", "J", "B", "D", "E", "F", "L", "I"], "BCDEFIJK": ["C", "J", "B", "D", "E", "F", "I", "K"], "BCDEFHKL": ["C", "E", "B", "D", "H", "F", "L", "K"], "BCDEFHJL": ["C", "J", "B", "D", "H", "F", "L", "E"], "BCDEFHJK": ["C", "J", "B", "D", "H", "F", "E", "K"], "BCDEFHIL": ["C", "E", "B", "D", "H", "F", "L", "I"], "BCDEFHIK": ["C", "E", "B", "D", "H", "F", "I", "K"], "BCDEFHIJ": ["C", "J", "B", "D", "H", "F", "E", "I"], "BCDEFGKL": ["C", "G", "B", "D", "E", "F", "L", "K"], "BCDEFGJL": ["C", "G", "B", "D", "J", "F", "L", "E"], "BCDEFGJK": ["C", "G", "B", "D", "J", "F", "E", "K"], "BCDEFGIL": ["C", "G", "B", "D", "E", "F", "L", "I"], "BCDEFGIK": ["C", "G", "B", "D", "E", "F", "I", "K"], "BCDEFGIJ": ["C", "G", "B", "D", "J", "F", "E", "I"], "BCDEFGHL": ["C", "G", "B", "D", "H", "F", "L", "E"], "BCDEFGHK": ["C", "G", "B", "D", "H", "F", "E", "K"], "BCDEFGHJ": ["H", "G", "B", "C", "J", "F", "D", "E"], "BCDEFGHI": ["C", "G", "B", "D", "H", "F", "E", "I"], "AFGHIJKL": ["H", "J", "I", "F", "A", "G", "L", "K"], "AEGHIJKL": ["E", "J", "I", "A", "H", "G", "L", "K"], "AEFHIJKL": ["E", "J", "I", "F", "A", "H", "L", "K"], "AEFGIJKL": ["E", "J", "I", "F", "A", "G", "L", "K"], "AEFGHJKL": ["E", "G", "J", "F", "A", "H", "L", "K"], "AEFGHIKL": ["E", "G", "I", "F", "A", "H", "L", "K"], "AEFGHIJL": ["E", "G", "J", "F", "A", "H", "L", "I"], "AEFGHIJK": ["E", "G", "J", "F", "A", "H", "I", "K"], "ADGHIJKL": ["H", "J", "I", "D", "A", "G", "L", "K"], "ADFHIJKL": ["H", "J", "I", "D", "A", "F", "L", "K"], "ADFGIJKL": ["I", "G", "J", "D", "A", "F", "L", "K"], "ADFGHJKL": ["H", "G", "J", "D", "A", "F", "L", "K"], "ADFGHIKL": ["H", "G", "I", "D", "A", "F", "L", "K"], "ADFGHIJL": ["H", "G", "J", "D", "A", "F", "L", "I"], "ADFGHIJK": ["H", "G", "J", "D", "A", "F", "I", "K"], "ADEHIJKL": ["E", "J", "I", "D", "A", "H", "L", "K"], "ADEGIJKL": ["E", "J", "I", "D", "A", "G", "L", "K"], "ADEGHJKL": ["E", "G", "J", "D", "A", "H", "L", "K"], "ADEGHIKL": ["E", "G", "I", "D", "A", "H", "L", "K"], "ADEGHIJL": ["E", "G", "J", "D", "A", "H", "L", "I"], "ADEGHIJK": ["E", "G", "J", "D", "A", "H", "I", "K"], "ADEFIJKL": ["E", "J", "I", "D", "A", "F", "L", "K"], "ADEFHJKL": ["H", "J", "E", "D", "A", "F", "L", "K"], "ADEFHIKL": ["H", "E", "I", "D", "A", "F", "L", "K"], "ADEFHIJL": ["H", "J", "E", "D", "A", "F", "L", "I"], "ADEFHIJK": ["H", "J", "E", "D", "A", "F", "I", "K"], "ADEFGJKL": ["E", "G", "J", "D", "A", "F", "L", "K"], "ADEFGIKL": ["E", "G", "I", "D", "A", "F", "L", "K"], "ADEFGIJL": ["E", "G", "J", "D", "A", "F", "L", "I"], "ADEFGIJK": ["E", "G", "J", "D", "A", "F", "I", "K"], "ADEFGHKL": ["H", "G", "E", "D", "A", "F", "L", "K"], "ADEFGHJL": ["H", "G", "J", "D", "A", "F", "L", "E"], "ADEFGHJK": ["H", "G", "J", "D", "A", "F", "E", "K"], "ADEFGHIL": ["H", "G", "E", "D", "A", "F", "L", "I"], "ADEFGHIK": ["H", "G", "E", "D", "A", "F", "I", "K"], "ADEFGHIJ": ["H", "G", "J", "D", "A", "F", "E", "I"], "ACGHIJKL": ["H", "J", "I", "C", "A", "G", "L", "K"], "ACFHIJKL": ["H", "J", "I", "C", "A", "F", "L", "K"], "ACFGIJKL": ["I", "G", "J", "C", "A", "F", "L", "K"], "ACFGHJKL": ["H", "G", "J", "C", "A", "F", "L", "K"], "ACFGHIKL": ["H", "G", "I", "C", "A", "F", "L", "K"], "ACFGHIJL": ["H", "G", "J", "C", "A", "F", "L", "I"], "ACFGHIJK": ["H", "G", "J", "C", "A", "F", "I", "K"], "ACEHIJKL": ["E", "J", "I", "C", "A", "H", "L", "K"], "ACEGIJKL": ["E", "J", "I", "C", "A", "G", "L", "K"], "ACEGHJKL": ["E", "G", "J", "C", "A", "H", "L", "K"], "ACEGHIKL": ["E", "G", "I", "C", "A", "H", "L", "K"], "ACEGHIJL": ["E", "G", "J", "C", "A", "H", "L", "I"], "ACEGHIJK": ["E", "G", "J", "C", "A", "H", "I", "K"], "ACEFIJKL": ["E", "J", "I", "C", "A", "F", "L", "K"], "ACEFHJKL": ["H", "J", "E", "C", "A", "F", "L", "K"], "ACEFHIKL": ["H", "E", "I", "C", "A", "F", "L", "K"], "ACEFHIJL": ["H", "J", "E", "C", "A", "F", "L", "I"], "ACEFHIJK": ["H", "J", "E", "C", "A", "F", "I", "K"], "ACEFGJKL": ["E", "G", "J", "C", "A", "F", "L", "K"], "ACEFGIKL": ["E", "G", "I", "C", "A", "F", "L", "K"], "ACEFGIJL": ["E", "G", "J", "C", "A", "F", "L", "I"], "ACEFGIJK": ["E", "G", "J", "C", "A", "F", "I", "K"], "ACEFGHKL": ["H", "G", "E", "C", "A", "F", "L", "K"], "ACEFGHJL": ["H", "G", "J", "C", "A", "F", "L", "E"], "ACEFGHJK": ["H", "G", "J", "C", "A", "F", "E", "K"], "ACEFGHIL": ["H", "G", "E", "C", "A", "F", "L", "I"], "ACEFGHIK": ["H", "G", "E", "C", "A", "F", "I", "K"], "ACEFGHIJ": ["H", "G", "J", "C", "A", "F", "E", "I"], "ACDHIJKL": ["H", "J", "I", "C", "A", "D", "L", "K"], "ACDGIJKL": ["I", "G", "J", "C", "A", "D", "L", "K"], "ACDGHJKL": ["H", "G", "J", "C", "A", "D", "L", "K"], "ACDGHIKL": ["H", "G", "I", "C", "A", "D", "L", "K"], "ACDGHIJL": ["H", "G", "J", "C", "A", "D", "L", "I"], "ACDGHIJK": ["H", "G", "J", "C", "A", "D", "I", "K"], "ACDFIJKL": ["C", "J", "I", "D", "A", "F", "L", "K"], "ACDFHJKL": ["H", "J", "F", "C", "A", "D", "L", "K"], "ACDFHIKL": ["H", "F", "I", "C", "A", "D", "L", "K"], "ACDFHIJL": ["H", "J", "F", "C", "A", "D", "L", "I"], "ACDFHIJK": ["H", "J", "F", "C", "A", "D", "I", "K"], "ACDFGJKL": ["C", "G", "J", "D", "A", "F", "L", "K"], "ACDFGIKL": ["C", "G", "I", "D", "A", "F", "L", "K"], "ACDFGIJL": ["C", "G", "J", "D", "A", "F", "L", "I"], "ACDFGIJK": ["C", "G", "J", "D", "A", "F", "I", "K"], "ACDFGHKL": ["H", "G", "F", "C", "A", "D", "L", "K"], "ACDFGHJL": ["C", "G", "J", "D", "A", "F", "L", "H"], "ACDFGHJK": ["H", "G", "J", "C", "A", "F", "D", "K"], "ACDFGHIL": ["H", "G", "F", "C", "A", "D", "L", "I"], "ACDFGHIK": ["H", "G", "F", "C", "A", "D", "I", "K"], "ACDFGHIJ": ["H", "G", "J", "C", "A", "F", "D", "I"], "ACDEIJKL": ["E", "J", "I", "C", "A", "D", "L", "K"], "ACDEHJKL": ["H", "J", "E", "C", "A", "D", "L", "K"], "ACDEHIKL": ["H", "E", "I", "C", "A", "D", "L", "K"], "ACDEHIJL": ["H", "J", "E", "C", "A", "D", "L", "I"], "ACDEHIJK": ["H", "J", "E", "C", "A", "D", "I", "K"], "ACDEGJKL": ["E", "G", "J", "C", "A", "D", "L", "K"], "ACDEGIKL": ["E", "G", "I", "C", "A", "D", "L", "K"], "ACDEGIJL": ["E", "G", "J", "C", "A", "D", "L", "I"], "ACDEGIJK": ["E", "G", "J", "C", "A", "D", "I", "K"], "ACDEGHKL": ["H", "G", "E", "C", "A", "D", "L", "K"], "ACDEGHJL": ["H", "G", "J", "C", "A", "D", "L", "E"], "ACDEGHJK": ["H", "G", "J", "C", "A", "D", "E", "K"], "ACDEGHIL": ["H", "G", "E", "C", "A", "D", "L", "I"], "ACDEGHIK": ["H", "G", "E", "C", "A", "D", "I", "K"], "ACDEGHIJ": ["H", "G", "J", "C", "A", "D", "E", "I"], "ACDEFJKL": ["C", "J", "E", "D", "A", "F", "L", "K"], "ACDEFIKL": ["C", "E", "I", "D", "A", "F", "L", "K"], "ACDEFIJL": ["C", "J", "E", "D", "A", "F", "L", "I"], "ACDEFIJK": ["C", "J", "E", "D", "A", "F", "I", "K"], "ACDEFHKL": ["H", "E", "F", "C", "A", "D", "L", "K"], "ACDEFHJL": ["H", "J", "F", "C", "A", "D", "L", "E"], "ACDEFHJK": ["H", "J", "E", "C", "A", "F", "D", "K"], "ACDEFHIL": ["H", "E", "F", "C", "A", "D", "L", "I"], "ACDEFHIK": ["H", "E", "F", "C", "A", "D", "I", "K"], "ACDEFHIJ": ["H", "J", "E", "C", "A", "F", "D", "I"], "ACDEFGKL": ["C", "G", "E", "D", "A", "F", "L", "K"], "ACDEFGJL": ["C", "G", "J", "D", "A", "F", "L", "E"], "ACDEFGJK": ["C", "G", "J", "D", "A", "F", "E", "K"], "ACDEFGIL": ["C", "G", "E", "D", "A", "F", "L", "I"], "ACDEFGIK": ["C", "G", "E", "D", "A", "F", "I", "K"], "ACDEFGIJ": ["C", "G", "J", "D", "A", "F", "E", "I"], "ACDEFGHL": ["H", "G", "F", "C", "A", "D", "L", "E"], "ACDEFGHK": ["H", "G", "E", "C", "A", "F", "D", "K"], "ACDEFGHJ": ["H", "G", "J", "C", "A", "F", "D", "E"], "ACDEFGHI": ["H", "G", "E", "C", "A", "F", "D", "I"], "ABGHIJKL": ["H", "J", "B", "A", "I", "G", "L", "K"], "ABFHIJKL": ["H", "J", "B", "A", "I", "F", "L", "K"], "ABFGIJKL": ["I", "J", "B", "F", "A", "G", "L", "K"], "ABFGHJKL": ["H", "J", "B", "F", "A", "G", "L", "K"], "ABFGHIKL": ["H", "G", "B", "A", "I", "F", "L", "K"], "ABFGHIJL": ["H", "J", "B", "F", "A", "G", "L", "I"], "ABFGHIJK": ["H", "J", "B", "F", "A", "G", "I", "K"], "ABEHIJKL": ["E", "J", "B", "A", "I", "H", "L", "K"], "ABEGIJKL": ["E", "J", "B", "A", "I", "G", "L", "K"], "ABEGHJKL": ["E", "J", "B", "A", "H", "G", "L", "K"], "ABEGHIKL": ["E", "G", "B", "A", "I", "H", "L", "K"], "ABEGHIJL": ["E", "J", "B", "A", "H", "G", "L", "I"], "ABEGHIJK": ["E", "J", "B", "A", "H", "G", "I", "K"], "ABEFIJKL": ["E", "J", "B", "A", "I", "F", "L", "K"], "ABEFHJKL": ["E", "J", "B", "F", "A", "H", "L", "K"], "ABEFHIKL": ["E", "I", "B", "F", "A", "H", "L", "K"], "ABEFHIJL": ["E", "J", "B", "F", "A", "H", "L", "I"], "ABEFHIJK": ["E", "J", "B", "F", "A", "H", "I", "K"], "ABEFGJKL": ["E", "J", "B", "F", "A", "G", "L", "K"], "ABEFGIKL": ["E", "G", "B", "A", "I", "F", "L", "K"], "ABEFGIJL": ["E", "J", "B", "F", "A", "G", "L", "I"], "ABEFGIJK": ["E", "J", "B", "F", "A", "G", "I", "K"], "ABEFGHKL": ["E", "G", "B", "F", "A", "H", "L", "K"], "ABEFGHJL": ["H", "J", "B", "F", "A", "G", "L", "E"], "ABEFGHJK": ["H", "J", "B", "F", "A", "G", "E", "K"], "ABEFGHIL": ["E", "G", "B", "F", "A", "H", "L", "I"], "ABEFGHIK": ["E", "G", "B", "F", "A", "H", "I", "K"], "ABEFGHIJ": ["H", "J", "B", "F", "A", "G", "E", "I"], "ABDHIJKL": ["I", "J", "B", "D", "A", "H", "L", "K"], "ABDGIJKL": ["I", "J", "B", "D", "A", "G", "L", "K"], "ABDGHJKL": ["H", "J", "B", "D", "A", "G", "L", "K"], "ABDGHIKL": ["I", "G", "B", "D", "A", "H", "L", "K"], "ABDGHIJL": ["H", "J", "B", "D", "A", "G", "L", "I"], "ABDGHIJK": ["H", "J", "B", "D", "A", "G", "I", "K"], "ABDFIJKL": ["I", "J", "B", "D", "A", "F", "L", "K"], "ABDFHJKL": ["H", "J", "B", "D", "A", "F", "L", "K"], "ABDFHIKL": ["H", "I", "B", "D", "A", "F", "L", "K"], "ABDFHIJL": ["H", "J", "B", "D", "A", "F", "L", "I"], "ABDFHIJK": ["H", "J", "B", "D", "A", "F", "I", "K"], "ABDFGJKL": ["F", "J", "B", "D", "A", "G", "L", "K"], "ABDFGIKL": ["I", "G", "B", "D", "A", "F", "L", "K"], "ABDFGIJL": ["F", "J", "B", "D", "A", "G", "L", "I"], "ABDFGIJK": ["F", "J", "B", "D", "A", "G", "I", "K"], "ABDFGHKL": ["H", "G", "B", "D", "A", "F", "L", "K"], "ABDFGHJL": ["H", "G", "B", "D", "A", "F", "L", "J"], "ABDFGHJK": ["H", "G", "B", "D", "A", "F", "J", "K"], "ABDFGHIL": ["H", "G", "B", "D", "A", "F", "L", "I"], "ABDFGHIK": ["H", "G", "B", "D", "A", "F", "I", "K"], "ABDFGHIJ": ["H", "G", "B", "D", "A", "F", "I", "J"], "ABDEIJKL": ["E", "J", "B", "A", "I", "D", "L", "K"], "ABDEHJKL": ["E", "J", "B", "D", "A", "H", "L", "K"], "ABDEHIKL": ["E", "I", "B", "D", "A", "H", "L", "K"], "ABDEHIJL": ["E", "J", "B", "D", "A", "H", "L", "I"], "ABDEHIJK": ["E", "J", "B", "D", "A", "H", "I", "K"], "ABDEGJKL": ["E", "J", "B", "D", "A", "G", "L", "K"], "ABDEGIKL": ["E", "G", "B", "A", "I", "D", "L", "K"], "ABDEGIJL": ["E", "J", "B", "D", "A", "G", "L", "I"], "ABDEGIJK": ["E", "J", "B", "D", "A", "G", "I", "K"], "ABDEGHKL": ["E", "G", "B", "D", "A", "H", "L", "K"], "ABDEGHJL": ["H", "J", "B", "D", "A", "G", "L", "E"], "ABDEGHJK": ["H", "J", "B", "D", "A", "G", "E", "K"], "ABDEGHIL": ["E", "G", "B", "D", "A", "H", "L", "I"], "ABDEGHIK": ["E", "G", "B", "D", "A", "H", "I", "K"], "ABDEGHIJ": ["H", "J", "B", "D", "A", "G", "E", "I"], "ABDEFJKL": ["E", "J", "B", "D", "A", "F", "L", "K"], "ABDEFIKL": ["E", "I", "B", "D", "A", "F", "L", "K"], "ABDEFIJL": ["E", "J", "B", "D", "A", "F", "L", "I"], "ABDEFIJK": ["E", "J", "B", "D", "A", "F", "I", "K"], "ABDEFHKL": ["H", "E", "B", "D", "A", "F", "L", "K"], "ABDEFHJL": ["H", "J", "B", "D", "A", "F", "L", "E"], "ABDEFHJK": ["H", "J", "B", "D", "A", "F", "E", "K"], "ABDEFHIL": ["H", "E", "B", "D", "A", "F", "L", "I"], "ABDEFHIK": ["H", "E", "B", "D", "A", "F", "I", "K"], "ABDEFHIJ": ["H", "J", "B", "D", "A", "F", "E", "I"], "ABDEFGKL": ["E", "G", "B", "D", "A", "F", "L", "K"], "ABDEFGJL": ["E", "G", "B", "D", "A", "F", "L", "J"], "ABDEFGJK": ["E", "G", "B", "D", "A", "F", "J", "K"], "ABDEFGIL": ["E", "G", "B", "D", "A", "F", "L", "I"], "ABDEFGIK": ["E", "G", "B", "D", "A", "F", "I", "K"], "ABDEFGIJ": ["E", "G", "B", "D", "A", "F", "I", "J"], "ABDEFGHL": ["H", "G", "B", "D", "A", "F", "L", "E"], "ABDEFGHK": ["H", "G", "B", "D", "A", "F", "E", "K"], "ABDEFGHJ": ["H", "G", "B", "D", "A", "F", "E", "J"], "ABDEFGHI": ["H", "G", "B", "D", "A", "F", "E", "I"], "ABCHIJKL": ["I", "J", "B", "C", "A", "H", "L", "K"], "ABCGIJKL": ["I", "J", "B", "C", "A", "G", "L", "K"], "ABCGHJKL": ["H", "J", "B", "C", "A", "G", "L", "K"], "ABCGHIKL": ["I", "G", "B", "C", "A", "H", "L", "K"], "ABCGHIJL": ["H", "J", "B", "C", "A", "G", "L", "I"], "ABCGHIJK": ["H", "J", "B", "C", "A", "G", "I", "K"], "ABCFIJKL": ["I", "J", "B", "C", "A", "F", "L", "K"], "ABCFHJKL": ["H", "J", "B", "C", "A", "F", "L", "K"], "ABCFHIKL": ["H", "I", "B", "C", "A", "F", "L", "K"], "ABCFHIJL": ["H", "J", "B", "C", "A", "F", "L", "I"], "ABCFHIJK": ["H", "J", "B", "C", "A", "F", "I", "K"], "ABCFGJKL": ["C", "J", "B", "F", "A", "G", "L", "K"], "ABCFGIKL": ["I", "G", "B", "C", "A", "F", "L", "K"], "ABCFGIJL": ["C", "J", "B", "F", "A", "G", "L", "I"], "ABCFGIJK": ["C", "J", "B", "F", "A", "G", "I", "K"], "ABCFGHKL": ["H", "G", "B", "C", "A", "F", "L", "K"], "ABCFGHJL": ["H", "G", "B", "C", "A", "F", "L", "J"], "ABCFGHJK": ["H", "G", "B", "C", "A", "F", "J", "K"], "ABCFGHIL": ["H", "G", "B", "C", "A", "F", "L", "I"], "ABCFGHIK": ["H", "G", "B", "C", "A", "F", "I", "K"], "ABCFGHIJ": ["H", "G", "B", "C", "A", "F", "I", "J"], "ABCEIJKL": ["E", "J", "B", "A", "I", "C", "L", "K"], "ABCEHJKL": ["E", "J", "B", "C", "A", "H", "L", "K"], "ABCEHIKL": ["E", "I", "B", "C", "A", "H", "L", "K"], "ABCEHIJL": ["E", "J", "B", "C", "A", "H", "L", "I"], "ABCEHIJK": ["E", "J", "B", "C", "A", "H", "I", "K"], "ABCEGJKL": ["E", "J", "B", "C", "A", "G", "L", "K"], "ABCEGIKL": ["E", "G", "B", "A", "I", "C", "L", "K"], "ABCEGIJL": ["E", "J", "B", "C", "A", "G", "L", "I"], "ABCEGIJK": ["E", "J", "B", "C", "A", "G", "I", "K"], "ABCEGHKL": ["E", "G", "B", "C", "A", "H", "L", "K"], "ABCEGHJL": ["H", "J", "B", "C", "A", "G", "L", "E"], "ABCEGHJK": ["H", "J", "B", "C", "A", "G", "E", "K"], "ABCEGHIL": ["E", "G", "B", "C", "A", "H", "L", "I"], "ABCEGHIK": ["E", "G", "B", "C", "A", "H", "I", "K"], "ABCEGHIJ": ["H", "J", "B", "C", "A", "G", "E", "I"], "ABCEFJKL": ["E", "J", "B", "C", "A", "F", "L", "K"], "ABCEFIKL": ["E", "I", "B", "C", "A", "F", "L", "K"], "ABCEFIJL": ["E", "J", "B", "C", "A", "F", "L", "I"], "ABCEFIJK": ["E", "J", "B", "C", "A", "F", "I", "K"], "ABCEFHKL": ["H", "E", "B", "C", "A", "F", "L", "K"], "ABCEFHJL": ["H", "J", "B", "C", "A", "F", "L", "E"], "ABCEFHJK": ["H", "J", "B", "C", "A", "F", "E", "K"], "ABCEFHIL": ["H", "E", "B", "C", "A", "F", "L", "I"], "ABCEFHIK": ["H", "E", "B", "C", "A", "F", "I", "K"], "ABCEFHIJ": ["H", "J", "B", "C", "A", "F", "E", "I"], "ABCEFGKL": ["E", "G", "B", "C", "A", "F", "L", "K"], "ABCEFGJL": ["E", "G", "B", "C", "A", "F", "L", "J"], "ABCEFGJK": ["E", "G", "B", "C", "A", "F", "J", "K"], "ABCEFGIL": ["E", "G", "B", "C", "A", "F", "L", "I"], "ABCEFGIK": ["E", "G", "B", "C", "A", "F", "I", "K"], "ABCEFGIJ": ["E", "G", "B", "C", "A", "F", "I", "J"], "ABCEFGHL": ["H", "G", "B", "C", "A", "F", "L", "E"], "ABCEFGHK": ["H", "G", "B", "C", "A", "F", "E", "K"], "ABCEFGHJ": ["H", "G", "B", "C", "A", "F", "E", "J"], "ABCEFGHI": ["H", "G", "B", "C", "A", "F", "E", "I"], "ABCDIJKL": ["I", "J", "B", "C", "A", "D", "L", "K"], "ABCDHJKL": ["H", "J", "B", "C", "A", "D", "L", "K"], "ABCDHIKL": ["H", "I", "B", "C", "A", "D", "L", "K"], "ABCDHIJL": ["H", "J", "B", "C", "A", "D", "L", "I"], "ABCDHIJK": ["H", "J", "B", "C", "A", "D", "I", "K"], "ABCDGJKL": ["C", "J", "B", "D", "A", "G", "L", "K"], "ABCDGIKL": ["I", "G", "B", "C", "A", "D", "L", "K"], "ABCDGIJL": ["C", "J", "B", "D", "A", "G", "L", "I"], "ABCDGIJK": ["C", "J", "B", "D", "A", "G", "I", "K"], "ABCDGHKL": ["H", "G", "B", "C", "A", "D", "L", "K"], "ABCDGHJL": ["H", "G", "B", "C", "A", "D", "L", "J"], "ABCDGHJK": ["H", "G", "B", "C", "A", "D", "J", "K"], "ABCDGHIL": ["H", "G", "B", "C", "A", "D", "L", "I"], "ABCDGHIK": ["H", "G", "B", "C", "A", "D", "I", "K"], "ABCDGHIJ": ["H", "G", "B", "C", "A", "D", "I", "J"], "ABCDFJKL": ["C", "J", "B", "D", "A", "F", "L", "K"], "ABCDFIKL": ["C", "I", "B", "D", "A", "F", "L", "K"], "ABCDFIJL": ["C", "J", "B", "D", "A", "F", "L", "I"], "ABCDFIJK": ["C", "J", "B", "D", "A", "F", "I", "K"], "ABCDFHKL": ["H", "F", "B", "C", "A", "D", "L", "K"], "ABCDFHJL": ["C", "J", "B", "D", "A", "F", "L", "H"], "ABCDFHJK": ["H", "J", "B", "C", "A", "F", "D", "K"], "ABCDFHIL": ["H", "F", "B", "C", "A", "D", "L", "I"], "ABCDFHIK": ["H", "F", "B", "C", "A", "D", "I", "K"], "ABCDFHIJ": ["H", "J", "B", "C", "A", "F", "D", "I"], "ABCDFGKL": ["C", "G", "B", "D", "A", "F", "L", "K"], "ABCDFGJL": ["C", "G", "B", "D", "A", "F", "L", "J"], "ABCDFGJK": ["C", "G", "B", "D", "A", "F", "J", "K"], "ABCDFGIL": ["C", "G", "B", "D", "A", "F", "L", "I"], "ABCDFGIK": ["C", "G", "B", "D", "A", "F", "I", "K"], "ABCDFGIJ": ["C", "G", "B", "D", "A", "F", "I", "J"], "ABCDFGHL": ["C", "G", "B", "D", "A", "F", "L", "H"], "ABCDFGHK": ["H", "G", "B", "C", "A", "F", "D", "K"], "ABCDFGHJ": ["H", "G", "B", "C", "A", "F", "D", "J"], "ABCDFGHI": ["H", "G", "B", "C", "A", "F", "D", "I"], "ABCDEJKL": ["E", "J", "B", "C", "A", "D", "L", "K"], "ABCDEIKL": ["E", "I", "B", "C", "A", "D", "L", "K"], "ABCDEIJL": ["E", "J", "B", "C", "A", "D", "L", "I"], "ABCDEIJK": ["E", "J", "B", "C", "A", "D", "I", "K"], "ABCDEHKL": ["H", "E", "B", "C", "A", "D", "L", "K"], "ABCDEHJL": ["H", "J", "B", "C", "A", "D", "L", "E"], "ABCDEHJK": ["H", "J", "B", "C", "A", "D", "E", "K"], "ABCDEHIL": ["H", "E", "B", "C", "A", "D", "L", "I"], "ABCDEHIK": ["H", "E", "B", "C", "A", "D", "I", "K"], "ABCDEHIJ": ["H", "J", "B", "C", "A", "D", "E", "I"], "ABCDEGKL": ["E", "G", "B", "C", "A", "D", "L", "K"], "ABCDEGJL": ["E", "G", "B", "C", "A", "D", "L", "J"], "ABCDEGJK": ["E", "G", "B", "C", "A", "D", "J", "K"], "ABCDEGIL": ["E", "G", "B", "C", "A", "D", "L", "I"], "ABCDEGIK": ["E", "G", "B", "C", "A", "D", "I", "K"], "ABCDEGIJ": ["E", "G", "B", "C", "A", "D", "I", "J"], "ABCDEGHL": ["H", "G", "B", "C", "A", "D", "L", "E"], "ABCDEGHK": ["H", "G", "B", "C", "A", "D", "E", "K"], "ABCDEGHJ": ["H", "G", "B", "C", "A", "D", "E", "J"], "ABCDEGHI": ["H", "G", "B", "C", "A", "D", "E", "I"], "ABCDEFKL": ["C", "E", "B", "D", "A", "F", "L", "K"], "ABCDEFJL": ["C", "J", "B", "D", "A", "F", "L", "E"], "ABCDEFJK": ["C", "J", "B", "D", "A", "F", "E", "K"], "ABCDEFIL": ["C", "E", "B", "D", "A", "F", "L", "I"], "ABCDEFIK": ["C", "E", "B", "D", "A", "F", "I", "K"], "ABCDEFIJ": ["C", "J", "B", "D", "A", "F", "E", "I"], "ABCDEFHL": ["H", "F", "B", "C", "A", "D", "L", "E"], "ABCDEFHK": ["H", "E", "B", "C", "A", "F", "D", "K"], "ABCDEFHJ": ["H", "J", "B", "C", "A", "F", "D", "E"], "ABCDEFHI": ["H", "E", "B", "C", "A", "F", "D", "I"], "ABCDEFGL": ["C", "G", "B", "D", "A", "F", "L", "E"], "ABCDEFGK": ["C", "G", "B", "D", "A", "F", "E", "K"], "ABCDEFGJ": ["C", "G", "B", "D", "A", "F", "E", "J"], "ABCDEFGI": ["C", "G", "B", "D", "A", "F", "E", "I"], "ABCDEFGH": ["H", "G", "B", "C", "A", "F", "D", "E"]}}};
+const SLOTS = DATA.annexeC.slots;
+const ANNEX = DATA.annexeC.map;
+const GROUPS = DATA.groups;
+const CODES = window.TEAMCODES||{}, FLAGSVG = window.FLAGS||{};
+function flag(team,cls){
+  const c=CODES[team], svg=c&&FLAGSVG[c];
+  return '<span class="flag '+(cls||'')+'">'+(svg||'')+'</span>';
+}
+function tn(team,extra){
+  if(!team) return '<span class="tn tbd"><span class="name">'+(extra||'À déterminer')+'</span></span>';
+  return '<span class="tn">'+flag(team,'sm')+'<span class="name">'+team+'</span></span>';
+}
+
+/* ---------- state ---------- */
+const KEY='wc2026:v2';
+let S = load();
+function load(){
+  try{const r=localStorage.getItem(KEY); if(r) return JSON.parse(r);}catch(e){}
+  const st={grp:{},ko:{},win:{}};
+  GROUPS.forEach(g=>g.fixtures.forEach((f,i)=>{
+    if(f.sa!=null||f.sb!=null) st.grp[g.g+'_'+i]={a:f.sa,b:f.sb};
+  }));
+  return st;
+}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+const num=v=>(v===''||v==null||isNaN(v))?null:parseInt(v,10);
+
+/* ---------- group standings ---------- */
+function standings(g){
+  const rows=g.teams.map((t,idx)=>({team:t,idx,J:0,G:0,N:0,P:0,BP:0,BC:0}));
+  const by=Object.fromEntries(rows.map(r=>[r.team,r]));
+  g.fixtures.forEach((f,i)=>{
+    const s=S.grp[g.g+'_'+i]; if(!s) return;
+    const a=num(s.a), b=num(s.b); if(a==null||b==null) return;
+    const ra=by[f.a], rb=by[f.b]; if(!ra||!rb) return;
+    ra.J++; rb.J++; ra.BP+=a; ra.BC+=b; rb.BP+=b; rb.BC+=a;
+    if(a>b){ra.G++;rb.P++;} else if(a<b){rb.G++;ra.P++;} else {ra.N++;rb.N++;}
+  });
+  rows.forEach(r=>{r.Diff=r.BP-r.BC; r.Pts=r.G*3+r.N;});
+  rows.sort((x,y)=> y.Pts-x.Pts || y.Diff-x.Diff || y.BP-x.BP || x.idx-y.idx);
+  rows.forEach((r,i)=>r.pos=i+1);
+  return rows;
+}
+const groupComplete=g=>g.fixtures.every((f,i)=>{const s=S.grp[g.g+'_'+i];return s&&num(s.a)!=null&&num(s.b)!=null;});
+const allGroupsComplete=()=>GROUPS.every(groupComplete);
+
+/* ---------- best thirds ---------- */
+function thirdsRanked(){
+  const arr=GROUPS.map((g,gi)=>{const t=standings(g)[2];
+    return {g:g.g,gi,team:t.team,Pts:t.Pts,Diff:t.Diff,BP:t.BP};});
+  arr.sort((x,y)=> y.Pts-x.Pts || y.Diff-x.Diff || y.BP-x.BP || x.gi-y.gi);
+  arr.forEach((r,i)=>{r.rank=i+1;r.qual=i<8;});
+  return arr;
+}
+function thirdsKey(){
+  const q=new Set(thirdsRanked().filter(r=>r.qual).map(r=>r.g));
+  return GROUPS.map(g=>g.g).filter(l=>q.has(l)).join('');
+}
+function thirdAssignment(){
+  if(!allGroupsComplete()) return null;
+  const key=thirdsKey(); const m=ANNEX[key]; if(!m) return null;
+  const out={};
+  SLOTS.forEach((slot,i)=>{
+    const gl=m[i]; const grp=GROUPS.find(g=>g.g===gl);
+    out[slot]={grp:gl,team:standings(grp)[2].team};
+  });
+  return out;
+}
+
+/* ---------- knockout ---------- */
+function posTeam(grp,pos){const g=GROUPS.find(x=>x.g===grp);const st=standings(g);
+  return {team:st[pos-1].team, decided:groupComplete(g)};}
+function resolveSlot(src,asg){
+  if(src.kind==='pos'){const r=posTeam(src.grp,src.pos);
+    return {team:r.team, seed:'seed'+(src.pos===1?'A':'B'), tag:src.pos+src.grp};}
+  if(src.kind==='third'){
+    if(asg&&asg[src.slot]) return {team:asg[src.slot].team, seed:'seedC', tag:'3e·'+asg[src.slot].grp};
+    return {team:null, seed:'seedC', tag:'3e '+src.slot, ph:'Meilleur 3e ('+src.slot+')'};}
+  if(src.kind==='win'||src.kind==='lose'){
+    const r=matchResult(byId[src.m],asg);
+    const who = src.kind==='win'? r.winner : r.loser;
+    return {team:who, seed:src.kind==='win'?'seedW':'seedL',
+      tag:(src.kind==='win'?'V·':'P·')+src.m, ph:(src.kind==='win'?'Vainqueur ':'Perdant ')+src.m};
+  }
+}
+function matchResult(m,asg){
+  const A=resolveSlot(m.src[0],asg), B=resolveSlot(m.src[1],asg);
+  const w=S.win[m.id]; let winner=null,loser=null;
+  if((w==='a'||w==='b') && A.team && B.team){
+    winner = w==='a'?A.team:B.team; loser = w==='a'?B.team:A.team;
+  }
+  return {A,B,winner,loser};
+}
+let byId={};
+const BR=[{"id": "M73", "round": "R32", "date": "dimanche 28 juin", "heure": "21h00", "stade": "SoFi Stadium, Los Angeles", "src": [{"kind": "pos", "pos": 2, "grp": "A"}, {"kind": "pos", "pos": 2, "grp": "B"}]}, {"id": "M74", "round": "R32", "date": "lundi 29 juin", "heure": "22h30", "stade": "Gillette Stadium, Boston", "src": [{"kind": "pos", "pos": 1, "grp": "E"}, {"kind": "third", "slot": "1E"}]}, {"id": "M75", "round": "R32", "date": "mardi 30 juin", "heure": "03h00", "stade": "Estadio BBVA, Monterrey", "src": [{"kind": "pos", "pos": 1, "grp": "F"}, {"kind": "pos", "pos": 2, "grp": "C"}]}, {"id": "M76", "round": "R32", "date": "lundi 29 juin", "heure": "19h00", "stade": "NRG Stadium, Houston", "src": [{"kind": "pos", "pos": 1, "grp": "C"}, {"kind": "pos", "pos": 2, "grp": "F"}]}, {"id": "M77", "round": "R32", "date": "mardi 30 juin", "heure": "23h00", "stade": "MetLife Stadium, New York", "src": [{"kind": "pos", "pos": 1, "grp": "I"}, {"kind": "third", "slot": "1I"}]}, {"id": "M78", "round": "R32", "date": "mardi 30 juin", "heure": "19h00", "stade": "AT&T Stadium, Dallas", "src": [{"kind": "pos", "pos": 2, "grp": "E"}, {"kind": "pos", "pos": 2, "grp": "I"}]}, {"id": "M79", "round": "R32", "date": "mercredi 1 juil.", "heure": "03h00", "stade": "Estadio Azteca, Mexico", "src": [{"kind": "pos", "pos": 1, "grp": "A"}, {"kind": "third", "slot": "1A"}]}, {"id": "M80", "round": "R32", "date": "mercredi 1 juil.", "heure": "18h00", "stade": "Mercedes-Benz Stadium, Atlanta", "src": [{"kind": "pos", "pos": 1, "grp": "L"}, {"kind": "third", "slot": "1L"}]}, {"id": "M81", "round": "R32", "date": "jeudi 2 juil.", "heure": "02h00", "stade": "Levi's Stadium, San Francisco", "src": [{"kind": "pos", "pos": 1, "grp": "D"}, {"kind": "third", "slot": "1D"}]}, {"id": "M82", "round": "R32", "date": "mercredi 1 juil.", "heure": "22h00", "stade": "Lumen Field, Seattle", "src": [{"kind": "pos", "pos": 1, "grp": "G"}, {"kind": "third", "slot": "1G"}]}, {"id": "M83", "round": "R32", "date": "vendredi 3 juil.", "heure": "01h00", "stade": "BMO Field, Toronto", "src": [{"kind": "pos", "pos": 2, "grp": "K"}, {"kind": "pos", "pos": 2, "grp": "L"}]}, {"id": "M84", "round": "R32", "date": "jeudi 2 juil.", "heure": "21h00", "stade": "SoFi Stadium, Los Angeles", "src": [{"kind": "pos", "pos": 1, "grp": "H"}, {"kind": "pos", "pos": 2, "grp": "J"}]}, {"id": "M85", "round": "R32", "date": "vendredi 3 juil.", "heure": "05h00", "stade": "BC Place, Vancouver", "src": [{"kind": "pos", "pos": 1, "grp": "B"}, {"kind": "third", "slot": "1B"}]}, {"id": "M86", "round": "R32", "date": "samedi 4 juil.", "heure": "00h00", "stade": "Hard Rock Stadium, Miami", "src": [{"kind": "pos", "pos": 1, "grp": "J"}, {"kind": "pos", "pos": 2, "grp": "H"}]}, {"id": "M87", "round": "R32", "date": "samedi 4 juil.", "heure": "03h30", "stade": "Arrowhead Stadium, Kansas City", "src": [{"kind": "pos", "pos": 1, "grp": "K"}, {"kind": "third", "slot": "1K"}]}, {"id": "M88", "round": "R32", "date": "vendredi 3 juil.", "heure": "20h00", "stade": "AT&T Stadium, Dallas", "src": [{"kind": "pos", "pos": 2, "grp": "D"}, {"kind": "pos", "pos": 2, "grp": "G"}]}, {"id": "M89", "round": "R16", "date": "samedi 4 juil.", "heure": "19h00", "stade": "NRG Stadium, Houston", "src": [{"kind": "win", "m": "M74"}, {"kind": "win", "m": "M77"}]}, {"id": "M90", "round": "R16", "date": "samedi 4 juil.", "heure": "23h00", "stade": "Lincoln Financial Field, Philadelphie", "src": [{"kind": "win", "m": "M73"}, {"kind": "win", "m": "M75"}]}, {"id": "M91", "round": "R16", "date": "dimanche 5 juil.", "heure": "22h00", "stade": "MetLife Stadium, New York", "src": [{"kind": "win", "m": "M76"}, {"kind": "win", "m": "M78"}]}, {"id": "M92", "round": "R16", "date": "lundi 6 juil.", "heure": "02h00", "stade": "Estadio Azteca, Mexico", "src": [{"kind": "win", "m": "M79"}, {"kind": "win", "m": "M80"}]}, {"id": "M93", "round": "R16", "date": "lundi 6 juil.", "heure": "21h00", "stade": "AT&T Stadium, Dallas", "src": [{"kind": "win", "m": "M83"}, {"kind": "win", "m": "M84"}]}, {"id": "M94", "round": "R16", "date": "mardi 7 juil.", "heure": "02h00", "stade": "Lumen Field, Seattle", "src": [{"kind": "win", "m": "M81"}, {"kind": "win", "m": "M82"}]}, {"id": "M95", "round": "R16", "date": "mardi 7 juil.", "heure": "18h00", "stade": "Mercedes-Benz Stadium, Atlanta", "src": [{"kind": "win", "m": "M86"}, {"kind": "win", "m": "M88"}]}, {"id": "M96", "round": "R16", "date": "mardi 7 juil.", "heure": "22h00", "stade": "BC Place, Vancouver", "src": [{"kind": "win", "m": "M85"}, {"kind": "win", "m": "M87"}]}, {"id": "M97", "round": "QF", "date": "jeudi 9 juil.", "heure": "22h00", "stade": "Gillette Stadium, Boston", "src": [{"kind": "win", "m": "M89"}, {"kind": "win", "m": "M90"}]}, {"id": "M98", "round": "QF", "date": "vendredi 10 juil.", "heure": "21h00", "stade": "SoFi Stadium, Los Angeles", "src": [{"kind": "win", "m": "M93"}, {"kind": "win", "m": "M94"}]}, {"id": "M99", "round": "QF", "date": "samedi 11 juil.", "heure": "23h00", "stade": "Hard Rock Stadium, Miami", "src": [{"kind": "win", "m": "M91"}, {"kind": "win", "m": "M92"}]}, {"id": "M100", "round": "QF", "date": "dimanche 12 juil.", "heure": "03h00", "stade": "Arrowhead Stadium, Kansas City", "src": [{"kind": "win", "m": "M95"}, {"kind": "win", "m": "M96"}]}, {"id": "M101", "round": "SF", "date": "mardi 14 juil.", "heure": "21h00", "stade": "AT&T Stadium, Dallas", "src": [{"kind": "win", "m": "M97"}, {"kind": "win", "m": "M98"}]}, {"id": "M102", "round": "SF", "date": "mercredi 15 juil.", "heure": "21h00", "stade": "Mercedes-Benz Stadium, Atlanta", "src": [{"kind": "win", "m": "M99"}, {"kind": "win", "m": "M100"}]}, {"id": "M103", "round": "3P", "date": "samedi 18 juil.", "heure": "23h00", "stade": "Hard Rock Stadium, Miami", "src": [{"kind": "lose", "m": "M101"}, {"kind": "lose", "m": "M102"}]}, {"id": "M104", "round": "F", "date": "dimanche 19 juil.", "heure": "21h00", "stade": "MetLife Stadium, New York", "src": [{"kind": "win", "m": "M101"}, {"kind": "win", "m": "M102"}]}];
+BR.forEach(m=>byId[m.id]=m);
+const ROUND_ORDER=[['R32','16es de finale'],['R16','8es de finale'],['QF','Quarts de finale'],
+  ['SF','Demi-finales'],['F','Finale'],['3P','3e place']];
+
+/* ---------- render ---------- */
+const $=s=>document.querySelector(s);
+function render(){renderGroups();renderThirds();renderBracket();save();}
+
+function renderGroups(){
+  const host=$('#groupsGrid'); host.innerHTML='';
+  GROUPS.forEach(g=>{
+    const st=standings(g), done=groupComplete(g);
+    const played=g.fixtures.filter((f,i)=>{const s=S.grp[g.g+'_'+i];return s&&num(s.a)!=null&&num(s.b)!=null;}).length;
+    const c=document.createElement('div'); c.className='card';
+    let rows='';
+    st.forEach(r=>{
+      rows+=`<tr class="r${r.pos<=3?r.pos:''}">
+        <td><span class="pos q${r.pos}">${r.pos}</span></td>
+        <td class="team"><span class="tn">${flag(r.team,'sm')}<span class="name">${r.team}</span></span></td>
+        <td>${r.J}</td><td class="d-hide">${r.G}</td><td class="d-hide">${r.N}</td>
+        <td class="d-hide">${r.P}</td><td>${r.BP}</td><td>${r.BC}</td>
+        <td>${r.Diff>0?'+':''}${r.Diff}</td><td class="pts">${r.Pts}</td></tr>`;
+    });
+    let fx='<div class="fx-h">Matchs</div>';
+    g.fixtures.forEach((f,i)=>{
+      const s=S.grp[g.g+'_'+i]||{};
+      fx+=`<div class="fx">
+        <div class="meta">${f.date||''} · ${f.heure||''} · ${f.stade||''}</div>
+        <span class="tn ta">${flag(f.a,'sm')}<span class="name">${f.a}</span></span>
+        <div class="score-box">
+          <input class="sc" inputmode="numeric" maxlength="2" value="${s.a??''}"
+            data-g="${g.g}" data-i="${i}" data-s="a" aria-label="Score ${f.a}">
+          <span class="dash">–</span>
+          <input class="sc" inputmode="numeric" maxlength="2" value="${s.b??''}"
+            data-g="${g.g}" data-i="${i}" data-s="b" aria-label="Score ${f.b}">
+        </div>
+        <span class="tn tb"><span class="name">${f.b}</span>${flag(f.b,'sm')}</span>
+      </div>`;
+    });
+    c.innerHTML=`<div class="card-h"><span class="lt">${g.g}</span>
+        <h3>Groupe ${g.g}</h3><span class="done">${done?'Terminé':played+'/6'}</span></div>
+      <table class="stand"><thead><tr>
+        <th>#</th><th class="team">Équipe</th><th>J</th><th class="d-hide">G</th>
+        <th class="d-hide">N</th><th class="d-hide">P</th><th>BP</th><th>BC</th><th>Diff</th><th>Pts</th>
+      </tr></thead><tbody>${rows}</tbody></table>
+      <div class="fixtures">${fx}</div>`;
+    host.appendChild(c);
+  });
+}
+
+function renderThirds(){
+  const arr=thirdsRanked(), done=allGroupsComplete();
+  $('#thirdNote').innerHTML = done
+    ? `Phase de groupes terminée. Les <b>8 meilleurs 3es</b> (surlignés) sont qualifiés et placés
+       automatiquement dans le tableau final via la table officielle FIFA (Annexe C, 495 combinaisons).
+       Combinaison retenue : <b>${thirdsKey()}</b>.`
+    : `Classement provisoire des 3es de chaque groupe. Les <b>8 meilleurs sur 12</b> seront qualifiés.
+       Critères : points, puis différence de buts, puis buts marqués. Le placement dans le tableau
+       final se verrouille une fois les 12 groupes terminés.`;
+  let h=`<thead><tr><th>Rang</th><th>Groupe</th><th>Équipe</th><th class="c">Pts</th>
+    <th class="c">Diff</th><th class="c">BP</th><th class="c">Qualifié</th></tr></thead><tbody>`;
+  arr.forEach(r=>{
+    h+=`<tr class="${r.qual?'qual':''}"><td class="c rk">${r.rank}</td><td>Groupe ${r.g}</td>
+      <td><span class="tn">${flag(r.team,'sm')}<span class="name">${r.team}</span></span></td>
+      <td class="c">${r.Pts}</td><td class="c">${r.Diff>0?'+':''}${r.Diff}</td>
+      <td class="c">${r.BP}</td>
+      <td class="c"><span class="badge ${r.qual?'y':'n'}">${r.qual?'Oui':'—'}</span></td></tr>`;
+  });
+  $('#thirdsTable').innerHTML=h+'</tbody>';
+}
+
+function renderBracket(){
+  const asg=thirdAssignment();
+  const host=$('#bracket'); host.innerHTML='';
+  ROUND_ORDER.forEach(([code,label])=>{
+    const ms=BR.filter(m=>m.round===code); if(!ms.length) return;
+    const col=document.createElement('div'); col.className='round';
+    col.innerHTML=`<h4>${label}</h4>`;
+    ms.forEach(m=>col.appendChild(koCard(m,asg)));
+    host.appendChild(col);
+  });
+  const fin=byId['M104']; const champ = fin? matchResult(fin,asg).winner : null;
+  $('#champ').innerHTML = champ
+    ? flag(champ)+'<span class="name">'+champ+'</span>'
+    : '<span class="name empty">À déterminer</span>';
+}
+
+function koCard(m,asg){
+  const res=matchResult(m,asg);
+  const sc=S.ko[m.id]||{};
+  const el=document.createElement('div'); el.className='ko';
+  const row=(side,info)=>{
+    const isW = res.winner && info.team===res.winner;
+    const body = info.team
+      ? `<span class="tn">${flag(info.team,'sm')}<span class="name">${info.team}</span></span>`
+      : `<span class="tn tbd"><span class="name">${info.ph||info.tag}</span></span>`;
+    return `<div class="ko-row ${isW?'win':''}">
+      <span class="seed ${info.seed}">${info.tag}</span>${body}
+      <input class="ksc" inputmode="numeric" maxlength="2" value="${sc[side]??''}"
+        data-ko="${m.id}" data-s="${side}" ${info.team?'':'disabled'} aria-label="Score">
+    </div>`;
+  };
+  let foot='';
+  if(m.round!=='3P'){
+    const w=S.win[m.id]||'';
+    const oa=res.A.team?`<option value="a" ${w==='a'?'selected':''}>${res.A.team}</option>`:'';
+    const ob=res.B.team?`<option value="b" ${w==='b'?'selected':''}>${res.B.team}</option>`:'';
+    const dis=(res.A.team&&res.B.team)?'':'disabled';
+    foot=`<div class="ko-foot"><label>Vainqueur</label>
+      <select data-kowin="${m.id}" ${dis}>
+        <option value="">— choisir —</option>${oa}${ob}</select></div>`;
+  }
+  el.innerHTML=`<div class="ko-h"><b>${m.id}</b> · ${m.date} ${m.heure}<br>${m.stade}</div>
+    ${row('a',res.A)}${row('b',res.B)}${foot}`;
+  return el;
+}
+
+/* ---------- events ---------- */
+document.addEventListener('input',e=>{
+  const t=e.target;
+  if(t.classList.contains('sc')){
+    const k=t.dataset.g+'_'+t.dataset.i; S.grp[k]=S.grp[k]||{a:null,b:null};
+    S.grp[k][t.dataset.s]= t.value===''?null:Math.max(0,Math.min(99,parseInt(t.value||'0',10)));
+    debounced();
+  } else if(t.classList.contains('ksc')){
+    const id=t.dataset.ko; S.ko[id]=S.ko[id]||{a:null,b:null};
+    S.ko[id][t.dataset.s]= t.value===''?null:Math.max(0,Math.min(99,parseInt(t.value||'0',10)));
+    const a=S.ko[id].a,b=S.ko[id].b;
+    if(a!=null&&b!=null&&a!==b && !S.win[id]) S.win[id]= a>b?'a':'b';
+    debounced();
+  }
+});
+document.addEventListener('change',e=>{
+  if(e.target.dataset.kowin!=null){ S.win[e.target.dataset.kowin]=e.target.value||null; render(); }
+});
+let tmr; function debounced(){clearTimeout(tmr); tmr=setTimeout(render,140);}
+
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.id===b.dataset.tab));
+  window.scrollTo({top:0});
+});
+$('#reset').onclick=()=>{
+  if(confirm('Effacer tous les scores saisis et repartir des résultats du classeur ?')){
+    localStorage.removeItem(KEY); S=load(); render();
+  }
+};
+
+let deferred;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;$('#install').hidden=false;});
+$('#install').onclick=async()=>{if(!deferred)return;deferred.prompt();await deferred.userChoice;deferred=null;$('#install').hidden=true;};
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+
+render();
+</script>
+</body>
+</html>
